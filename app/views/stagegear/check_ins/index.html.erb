@@ -1,0 +1,57 @@
+<style>
+.collapsible {
+  background-color: #777;
+  color: white;
+  width: 100%;
+  text-align: left;
+  margin: 2px;
+}
+
+.active1, .collapsible:hover {
+  background-color: #555;
+}
+.btn-secondary{
+  margin-top:5px;
+}
+.content {
+  padding: 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+</style>
+
+<% content_for(:title) { "check_ins" } %>
+<% content_for(:breadcrumbs) do %>
+  <li class="breadcrumb-item active" aria-current="page">
+    Projector_Check_Ins
+  </li>
+<% end %>
+<div><%= link_to "Projectors", :stagegear_projectors %> | <%= link_to "Rentals", :stagegear_projector_rentals %></div>
+<div><h2>Projector Check In</h2>
+<br>
+
+<h5>Previous Check Ins</h5>
+
+<div id="projectors"><br>
+  <% @check_ins.reverse_each do |check_in| %>
+      <%= render check_in %>
+  <%end%>
+</div>
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active1");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>

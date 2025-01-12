@@ -1,0 +1,87 @@
+<%= form_with model:projector_rental, class: "row g-3" do |form| %>
+  <% if projector_rental.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(projector_rental.errors.count, "error") %> prohibited this projector_rental from being saved:</h2>
+
+      <ul>
+        <% projector_rental.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="col-md-6">
+    <%= form.label :start_date, class: "form-label" %>
+    <%= form.date_field :start_date, class: "form-control" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :end_date, class: "form-label" %>
+    <%= form.date_field :end_date, class: "form-control" %>
+  </div>
+  
+  <div class="col-md-6">
+    <%= form.label :client_id, value: "Client:", class: "form-label" %>
+    <%= form.hidden_field :client_id, value: projector_rental.client.id %>
+    <%= projector_rental.client.name%>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :projector_id, class: "form-label" %>
+    <%= form.collection_select :projector_id, StageGear::Projector.where(
+      projector_type: projector_rental.projector.projector_type
+      ).where.not(
+        projector_rentals: StageGear::ProjectorRental.where(
+          'start_date <= ? AND end_date >= ? OR start_date <= ? AND end_date >= ? OR start_date > ? AND end_date < ?',  projector_rental.start_date, projector_rental.start_date, projector_rental.end_date, projector_rental.end_date, projector_rental.start_date, projector_rental.end_date
+          )).map{
+          |pr| ["#{pr.unit_number}- #{pr.projector_type.name} ", pr.id] 
+          }, :second, :first,  :prompt => true, class: "form-control" %>
+  </div>
+
+  <h4> Address </h4>
+    <div class="col-md-6">
+    <%= form.label :address_first_name, "First Name", class: "form-label" %>
+    <%= form.text_field :address, value: projector_rental.address["first_name"], name: "stagegear_projector_rental[address][first_name]", class: "form-control" %>
+  </div>
+  <!-- Add the remaining fields similarly -->
+  <div class="col-md-6">
+    <%= form.label :address_last_name, "Last Name", class: "form-label" %>
+    <%= form.text_field :address, value: projector_rental.address["last_name"], name: "stagegear_projector_rental[address][last_name]", class: "form-control" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :address_organization, "Organization", class: "form-label" %>
+    <%= form.text_field :address, value: projector_rental.address["organization"], name: "stagegear_projector_rental[address][organization]", class: "form-control" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :address_email, "Email", class: "form-label" %>
+    <%= form.email_field :address, value: projector_rental.address["email"], name: "stagegear_projector_rental[address][email]", class: "form-control" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :address_street_address, "Street Address", class: "form-label" %>
+    <%= form.text_field :address, value: projector_rental.address["street_address"], name: "stagegear_projector_rental[address][street_address]", class: "form-control" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :address_city, "City", class: "form-label" %>
+    <%= form.text_field :address, value: projector_rental.address["city"], name: "stagegear_projector_rental[address][city]", class: "form-control" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :address_state, "State", class: "form-label" %>
+    <%= form.text_field :address, value: projector_rental.address["state"], name: "stagegear_projector_rental[address][state]", class: "form-control" %>
+  </div>
+
+   <div class="col-md-6">
+    <%= form.label :address_postal_code, "Postal Code", class: "form-label" %>
+    <%= form.text_field :address, value: projector_rental.address["postal_code"], name: "stagegear_projector_rental[address][postal_code]", class: "form-control" %>
+  </div>
+
+<br>
+  <div class="col-12 text-end">
+    <%= form.submit %>
+  </div>
+<% end %>

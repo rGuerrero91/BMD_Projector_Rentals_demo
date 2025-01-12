@@ -1,0 +1,41 @@
+<div id="<%= dom_id projector_rental %>">
+  <p>
+    <strong>Start date:</strong>
+    <%= projector_rental.start_date %>
+  </p>
+
+  <p>
+    <strong>End date:</strong>
+    <%= projector_rental.end_date %>
+  </p>
+
+  <p>
+    <strong>User:</strong>
+    <%= User.find_by(id: projector_rental.client_id).first_name %>
+  </p>
+
+  <p>
+    <strong>Projector:</strong><br>
+    unit_number:
+    <%= StageGear::Projector.find_by(id: projector_rental.projector_id).unit_number %><br>
+    type:
+    <%= StageGear::Projector.find_by(id: projector_rental.projector_id).projector_type.name%>
+  </p>
+  <p>
+    <strong>Status:</strong>
+    <%= projector_rental.status %>
+  </p>
+  <p>
+  <strong> Address</strong><br>
+    Name: <%= projector_rental.address["first_name"]%> <%= projector_rental.address["last_name"]%><br>
+    Organization: <%= projector_rental.address["organization"]%><br>
+    E-Mail: <%= projector_rental.address["email"]%><br>
+    Street Address <%= projector_rental.address["street_address"]%><br>
+    City: <%= projector_rental.address["city"]%><br>
+    State: <%= projector_rental.address["state"]%><br>
+    Postal Code: <%= projector_rental.address["postal_code"]%>
+  </p>
+  
+
+  
+</div>

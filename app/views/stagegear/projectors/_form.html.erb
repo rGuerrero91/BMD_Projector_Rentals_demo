@@ -1,0 +1,31 @@
+<%= form_with(model: projector) do |form| %>
+  
+  <div>
+  Projector Type: <%= projector.projector_type.name%>
+  </div>
+
+
+  <div>
+    <%= form.label :status, style: "display: block" %>
+    <%= form.select :status, status: [:available, :reserved, :rented_out, :maintenance] %>
+  </div>
+
+  <div>
+    <%= form.label :unit_number, style: "display: block" %>
+    <%= form.text_field :unit_number %>
+  </div>
+
+  <div>
+    <%= form.label :serial_number, style: "display: block" %>
+    <%= form.text_field :serial_number %>
+  </div>
+
+  <div>
+    <%= form.label :lens_serial_number, style: "display: block" %>
+    <%= form.text_field :lens_serial_number %>
+  </div>
+  <br>
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,29 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @projector %>
+
+<% if @projector.thumbnail_image.attached? %>
+<div>
+Thumbnail:
+<br>
+  <%= image_tag @projector.thumbnail_image, :style => ["height:200px" ]%>
+  </div>
+<% end %>
+
+<% if @projector.images.attached? %>
+<div>
+Product Images:
+  <% @projector.images.each do |image| %>
+  <div>
+    <%= image_tag image, :style => "height:200px" %>
+  </div>
+  <% end %>
+  </div>
+<% end %>
+
+<div>
+
+  <%= link_to "Back to projectors", stagegear_projectors_path %>
+  <%= link_to 'Edit Projector', edit_stagegear_projector_path(@projector), class: 'btn btn-primary' %>
+  <%= button_to "Destroy this projector", @projector, method: :delete %>
+</div>

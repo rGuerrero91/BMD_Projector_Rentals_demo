@@ -1,0 +1,10 @@
+<h3>Editing Projector <%= @projector.unit_number %></h3>
+
+<%= render "form", projector: @projector %>
+
+<br>
+
+<div>
+  <%= link_to "Show this projector", stagegear_projector_path %> |
+  <%= link_to "Back to projectors", stagegear_projectors_path %>
+</div>

@@ -1,0 +1,77 @@
+<table class="table table-striped">
+
+  <thead>
+    <tr>
+      <th>Client</th>
+      <th>Projector</th>
+      <th>Order Number</th>
+      <th>Usage Period</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if rentals %>
+      <% rentals.reverse_each.each do |rental| %>
+        <tr>
+          <td>
+            <div><%= link_to rental.client.name, rental.client %></div>
+            <div><%= rental.client.email %></div>
+            <div><%= rental.client.organization %></div>
+          </td>
+          <td>
+              <div><%= link_to rental.projector.unit_number, rental.projector %></div>
+              <div><%= rental.projector.projector_type.name %></div>
+          <td><div><%= rental.order_number %></div></td>
+          <td>
+            <div>
+              <%= rental.start_date.strftime "%b %d %Y" %> - 
+              <%= rental.end_date.strftime "%b %d %Y" %>
+            </div>
+          </td>
+          <td>
+            <%= rental.status %>
+          </td>
+          <td>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Actions
+              </button>
+              <ul class="dropdown-menu">
+                <% if rental.status == "pending" %>
+                  <li>
+                    <%= link_to "Confirm Order and Reserve", confirm_stagegear_projector_rental_path(rental), method: :patch, class: "dropdown-item",
+                    data: {confirm: "This will reserve the associated projector and create a Shipment order and label."} %>
+
+                  </li>
+                  <% elsif rental.status == "reserved" %>
+                  <li>
+                    <%= link_to "Shippo Order Page", url_for(rental.shippo_order_page), :target => "_blank", class: "dropdown-item" %>
+                  </li>
+                  <li>
+                    <%= link_to "Confirm Shipment", confirm_stagegear_projector_rental_path(rental),  method: :patch, class: "dropdown-item", 
+                    data: {confirm: "Mark the rental and projector as Shipped?"}%>
+                  </li>  
+                  <% elsif rental.status == "active" %>
+                  <li>
+                    <%= link_to "Shippo Order Page", url_for(rental.shippo_order_page), :target => "_blank", class: "dropdown-item" %>
+                  </li>
+                    <li>
+                    <%= link_to "Check In", new_stagegear_check_in_path(projector_rental_id: rental.id), class: "dropdown-item" %>
+                  </li>
+                <% end %>
+                <li>
+                  <%= link_to "Edit", [:edit, @projector_rental, rental], class: "dropdown-item" %>
+                </li>
+                <li>
+                  <%= link_to "Delete", [@projector_rental, rental], method: :delete, class: "dropdown-item text-danger",
+                  data: {confirm: "Are you sure you want to delete this rental?"} %>
+                </li>
+              </ul>
+            </div>
+          </td>
+
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,58 @@
+<div class="check_in_field">
+  <label>ProjectorRental Id: </label>
+  <span class="value"><%= @check_in.projector_rental_id %></span>
+</div>
+
+<div class="check_in_field">
+  <label>Status Summary: </label>
+  <span class="value"><%= @check_in.status_summary %></span>
+</div>
+
+<% if @check_in.damage_description%>
+<div class="check_in_field">
+  <label>Damage Description: </label>
+  <span class="value"><%=@check_in.damage_description %></span>
+</div>
+
+<div class="check_in_field">
+  <label>Damage Fees: </label>
+  <span class="value"><%= @check_in.damage_fees %></span>
+</div>
+<% end %>
+
+<div class="check_in_field">
+  <label>Return_Date: </label>
+  <span class="value"><%= @check_in.return_date %></span>
+</div>
+
+<div class="check_in_field">
+  <label>Late?: </label>
+  <span class="value"><%= @check_in.late_return %></span>
+</div>
+<% if @check_in.late_return == true %>
+<div class="check_in_field">
+  <label>Late Fee: </label>
+  <span class="value"><%= @check_in.late_fee %></span>
+</div>
+<%end%>
+<div class="check_in_field">
+  <label>Lamp Hours: </label>
+  <span class="value"><%= @check_in.lamp_hours %></span>
+</div>
+
+<% if @check_in.images %>
+  <div class="check_in_field">
+    <label>Photos: </label><br/>
+    <% @check_in.images.each do |image| %>
+      <%= image_tag(image, style: 'height:200px;width:auto;') %>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="check_in_field">
+  <label>Result: </label>
+  <span class="value"><%= @check_in.result %></span>
+</div>
+
+  <%= link_to "Back to check_ins", stagegear_check_ins_path %>
+  <%= link_to 'Edit check in', edit_stagegear_check_in_path(@check_in), class: 'btn btn-primary' %>

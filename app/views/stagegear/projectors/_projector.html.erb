@@ -1,0 +1,16 @@
+<button type="button" class="collapsible">
+  <p>Unit <%= projector.unit_number %> |
+  Type: <%= projector.projector_type.name %> |
+  Status: <%= projector.status %></p>
+</button>
+<div class="content">
+<div class="projector">
+  <h4>Unit <%= projector.unit_number %></h4>
+  <p>Type: <%= projector.projector_type.name %></p>
+  <p>Status: <%= projector.status.capitalize() %></p>
+  <p>Serial Number: <%= projector.serial_number %></p>
+  <p>Lens Serial Number: <%= projector.lens_serial_number%></p>
+
+  <%= link_to 'Edit', edit_stagegear_projector_path(projector) %>
+</div>
+</div>

@@ -1,0 +1,59 @@
+
+<% content_for(:title) { "Projector_rentals" } %>
+<% content_for(:breadcrumbs) do %>
+  <li class="breadcrumb-item active" aria-current="page">
+    Projector_Rentals
+  </li>
+<% end %>
+<div><%= link_to "Projectors", :stagegear_projectors %> | <%= link_to "Check Ins", :stagegear_check_ins %></div>
+<h2>ProjectorRentals</h2>
+<button class="btn btn-secondary" onclick="openPage('all', this, 'white')">All</button>
+<button class="btn btn-secondary" onclick="openPage('pending', this, 'white')" id="defaultOpen">Pending</button>
+<button class="btn btn-secondary" onclick="openPage('reserved', this, 'white')">Reserved</button>
+<button class="btn btn-secondary" onclick="openPage('active', this, 'white')">Active</button>
+<button class="btn btn-secondary" onclick="openPage('past', this, 'white')">Past</button>
+<br><br>
+
+<div id="all" class="tabcontent">
+<h3>All Rentals</h3>
+<%= render "table", rentals: @projector_rentals %>
+</div>
+
+<div id="pending" class="tabcontent">
+<h3>Pending Rentals</h3>
+<%= render "table", rentals: @projector_rentals.where(status: 'pending') %>
+</div>
+
+<div id="reserved" class="tabcontent">
+<h3>Reserved Rentals</h3>
+<%= render "table", rentals: @projector_rentals.where(status: 'reserved') %>
+</div>
+
+<div id="active" class="tabcontent">
+<h3>Active Rentals</h3>
+<%= render "table", rentals: @projector_rentals.where(status: 'active') %>
+</div>
+
+<div id="past" class="tabcontent">
+<h3>Past Rentals</h3>
+<%= render "table", rentals: @projector_rentals.where(status: 'completed') %>
+</div>
+
+
+<script>
+function openPage(pageName,elmnt,color) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].style.backgroundColor = "";
+  }
+  document.getElementById(pageName).style.display = "block";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>

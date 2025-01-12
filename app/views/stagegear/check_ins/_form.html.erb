@@ -1,0 +1,44 @@
+<%= form_with model: check_in, class: "row g-3" do |f| %>
+<div>
+  <%= f.label :projector_rental_id, class: "form-label" %>
+  <%= f.text_field :projector_rental_id, value: @rental.id, class: "form-control" %>
+  
+</div>
+<div>
+  <%= f.label :status_summary, class: "form-label" %>
+  <%= f.text_field :status_summary, class: "form-control" %>
+  
+</div>
+<h5> If Damaged</h5> 
+<div>
+  <%= f.label :damage_description, class: "form-label" %>
+  <%= f.text_area :damage_description, class: "form-control" %>
+</div>
+<div>
+  <%= f.label :damage_fees, class: "form-label" %>
+  <%= f.text_field :damage_fees, class: "form-control" %>
+</div>
+<div>
+  <%= f.label :return_date, class: "form-label" %>
+  <%= f.date_field :return_date, class: "form-control" %>
+</div>
+<div>
+  <%= f.label :late_fee, class: "form-label" %>
+  <%= f.text_field :late_fee, class: "form-control" %>
+</div>
+<div>
+  <%= f.label :lamp_hours, class: "form-label" %>
+  <%= f.text_field :lamp_hours, class: "form-control" %>
+</div>
+  <%= f.label :photos, class: "form-label" %>
+  <%= f.file_field :images, multiple: true %>
+<div>
+  <%= f.label :result, value:"Result: ", class: "form-label" %>
+  <%= f.radio_button :result, :accepted%>
+  <%= f.label :result, "Acccepted"%>
+  <%= f.radio_button :result, :maintenance%>
+  <%= f.label :result, "Maintenance"%>
+</div>
+<br>
+  <%= f.submit "Create Check-in" %>
+<% end %>

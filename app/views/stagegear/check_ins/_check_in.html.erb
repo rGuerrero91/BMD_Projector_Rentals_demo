@@ -1,0 +1,26 @@
+
+<button type="button" class="collapsible">
+  <p>Client: <%= check_in.projector_rental.client.name %> |
+    Date: <%= check_in.projector_rental.start_date %> - <%= check_in.projector_rental.end_date %> |
+    Result: <%= check_in.result %> </p>
+</button>
+<div class="content">
+  <div class="check_in">
+  <p><%= link_to "Client Page", check_in.projector_rental.client %></p>
+    <p> Summary: <%= check_in.status_summary %></p>
+    <% if check_in.damage_description  %>
+      <p> <h5>!Damaged!</h5> </p> 
+      <p> Description: <%= check_in.damage_description %></p>
+      <p>Fee: <%= check_in.damage_fees %></p>
+    <% end %>
+      <p> Return Date: <%= check_in.return_date %></p>
+      <p> Late? <%= check_in.late_return %></p>
+    <% if check_in.late_return  %>
+      <p> Fee: <%= check_in.late_fee %></p>
+    <% end %>
+    <p> Lamp Hours: <%= check_in.lamp_hours %></p>
+    <p> Result: <%= check_in.result %></p>
+  
+    <%= link_to "View", check_in %>
+  </div>
+</div>

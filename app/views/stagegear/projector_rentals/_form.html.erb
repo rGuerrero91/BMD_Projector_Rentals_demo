@@ -1,0 +1,91 @@
+<%= form_with model:projector_rental, class: "row g-3" do |form| %>
+  <% if projector_rental.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(projector_rental.errors.count, "error") %> prohibited this projector_rental from being saved:</h2>
+
+      <ul>
+        <% projector_rental.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="col-md-6">
+    <%= form.label :start_date, class: "form-label" %>
+    <%= form.date_field :start_date, class: "form-control" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :end_date, class: "form-label" %>
+    <%= form.date_field :end_date, class: "form-control" %>
+  </div>
+  
+  <div class="col-md-6">
+    <%= form.label :client_id, value: "Client:", class: "form-label" %>
+    <%= form.hidden_field :client_id, value: @client.id %>
+    <%= @client.name%>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :projector_type, class: "form-label" %>
+    <%= form.collection_select :projector_type, ["lite", "economy", "basic", "plus", "premium" ], :to_s , :to_s, class: "form-control" %>
+  </div>
+  
+
+<h4> Address </h4>
+    <div class="col-md-6">
+    <%= form.label :address_first_name, "First Name", class: "form-label" %>
+    <%= form.text_field :address, name: "stagegear_projector_rental[address][first_name]", class: "form-control" %>
+  </div>
+  <!-- Add the remaining fields similarly -->
+  <div class="col-md-6">
+    <%= form.label :address_last_name, "Last Name", class: "form-label" %>
+    <%= form.text_field :address, name: "stagegear_projector_rental[address][last_name]", class: "form-control" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :address_organization, "Organization", class: "form-label" %>
+    <%= form.text_field :address, name: "stagegear_projector_rental[address][organization]", class: "form-control" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :address_email, "Email", class: "form-label" %>
+    <%= form.email_field :address, name: "stagegear_projector_rental[address][email]", class: "form-control" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :address_street_address, "Street Address", class: "form-label" %>
+    <%= form.text_field :address, name: "stagegear_projector_rental[address][street_address]", class: "form-control" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :address_city, "City", class: "form-label" %>
+    <%= form.text_field :address, name: "stagegear_projector_rental[address][city]", class: "form-control" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :address_state, "State", class: "form-label" %>
+    <%= form.text_field :address, name: "stagegear_projector_rental[address][state]", class: "form-control" %>
+  </div>
+
+   <div class="col-md-6">
+    <%= form.label :address_postal_code, "Postal Code", class: "form-label" %>
+    <%= form.text_field :address, name: "stagegear_projector_rental[address][postal_code]", class: "form-control" %>
+  </div>
+
+  <div class="col-md-6">
+    <%= form.label :address_country, "Country", class: "form-label" %>
+    <%= form.text_field :address, name: "stagegear_projector_rental[address][country]", class: "form-control" %>
+  </div>
+
+  <div class="col-12">
+    <h5>Upload Purchase Order</h5>
+    <%= form.file_field :purchase_order, direct_upload: true, class: "form-control" %>
+  </div>
+
+  <br>
+  <div class="col-12 text-end">
+    <%= form.submit %>
+  </div>
+<% end %>
